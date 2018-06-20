@@ -1,31 +1,34 @@
-var http = require('axios')
-const settings = require('../configSettings.js')
+var http = require("axios");
+const settings = require("../configSettings.js");
+const mongoose = require("mongoose");
 
-const productMocks = [{ id: 1, name: 'Product A', shortDescription: 'First product.' }, { id: 2, name: 'Product B', shortDescription: 'Second product.' }]
+const productMocks = [
+  { id: 1, name: "Product A", shortDescription: "First product." },
+  { id: 2, name: "Product B", shortDescription: "Second product." }
+];
+
+// mongoose.connect('mongodb://mongo:27017')
+mongoose.connect("mongodb://localhost:27017");
+var productSchema = mongoose.Schema({
+  id: Number,
+  name: String,
+  shortDescription: String
+});
+
+var productModel = mongoose.model("Product", productSchema);
 
 exports.resolver = {
   Query: {
-    products(root, {id }, context) {
-      var responseData = 'Initial Info'
-      const results = id ? productMocks.filter(p => p.id == id) : productMocks
-      
-      http.get(settings.restAPI1BaseUrl)
-        .then((res) => {
-          if (res.data) {
-            responseData = res.data
-          }
-          results.map((p) => p.extraData = JSON.stringify(responseData))
-        })
-        .catch(err => console.log(err))
-      
-
-
-      if (results.length > 0) {
-        return results
+    products(root, { id }, context) {
+      var products;
+      if (id) {
+        products = productModel.find({ id: id }).exec();
+      } else {
+        products = productModel.find().exec();
       }
-      else {
-        throw (`Product with id ${id} does not exist`)
-      }
-    }
+      return products;
+    },
+    extraData1 () { return http.get(settings.restAPI1BaseUrl)},
+    extraData2 () {return http.get(settings.restAPI2BaseUrl)}
   }
-}
+};

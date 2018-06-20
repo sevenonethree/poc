@@ -3,21 +3,50 @@ version: '3'
 services:
   graphql-api:
     container_name: 'graphQL'
-    image: graphql
+    image: poc/graphql
     build: ./graphQL-api/
     environment:
       NODE_ENV: production
     ports:
-      - 4000:3333
+      - 4000:4000
+    links:
+      - rest-api-1
+      - rest-api-2
+      - mongo
+    depends_on:
+      - rest-api-1
+      - rest-api-2
+
+  rest-api-1: 
+      container_name: 'rest-api-1'
+      image: poc/rest-api-1
+      build: ./rest-api/
+      ports:  
+          - 8001
+  rest-api-2: 
+      container_name: 'rest-api-2'
+      image: poc/rest-api-2
+      build: ./rest-api2/
+      ports:  
+          - 8002    
+  mongo: 
+    container_name: 'mongo-database'
+    image: mongo
+    ports: 
+      - 27017:27017
+    volumes:
+      -  mongo-data:/data/db
+volumes:
+  mongo-data:
     # links: 
     #   - mongo
     # depends_on: 
     #   - mongo
-  mongo: 
-    container_name: 'rest-api1'
-    image: rest1
-    ports: 
-      - 80:3334
+  # mongo: 
+  #   container_name: 'rest-api1'
+  #   image: rest1
+  #   ports: 
+      # - 80:3334
 #     volumes:
 #       -  mongo-data:/data/db
 # volumes:
