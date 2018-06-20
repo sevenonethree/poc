@@ -28,7 +28,13 @@ exports.resolver = {
       }
       return products;
     },
-    extraData1 () { return http.get(settings.restAPI1BaseUrl)},
-    extraData2 () {return http.get(settings.restAPI2BaseUrl)}
+  },
+  Product: {
+    extraData () { 
+      return http.get(settings.restAPI1BaseUrl).then(res => res.data)
+    },
+    extraData2 () {
+      return http.get(settings.restAPI2BaseUrl).then(res => res.data)
+    }
   }
 };

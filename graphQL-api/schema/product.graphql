@@ -8,8 +8,6 @@ type Product {
 
 type Query { 
   products(id: Int): [Product]
-  extraData1: ExtraData1
-  extraData2: ExtraData2
 }
 
 type ExtraData1 {
