@@ -5,8 +5,8 @@ const settings = require("./configSettings")
 const bodyparser = require("body-parser")
 const { makeExecutableSchema } = require("graphql-tools")
 const mongoose = require("mongoose")
-
 const { schema, resolver } = glue("./schema")
+const Products = require("./models/productModel")
 
 const executableSchema = makeExecutableSchema({
   typeDefs: schema,
@@ -14,13 +14,6 @@ const executableSchema = makeExecutableSchema({
 })
 
 mongoose.connect(settings.mongoURL)
-var productSchema = mongoose.Schema({
-  id: Number,
-  name: String,
-  shortDescription: String
-})
-
-// var productModel = mongoose.model("Product", productSchema)
 
 var root = {
   message: () => "I am (g)root!"
@@ -35,7 +28,7 @@ app.get("/", (req, res) => {
 
 app.post("/api/products", (req, res) => {
   console.log(req.body)
-  var obj = new productModel({
+  var obj = new Products({
     id: req.body.id,
     name: req.body.name,
     shortDescription: req.body.shortDescription
@@ -43,12 +36,12 @@ app.post("/api/products", (req, res) => {
 
   obj.save((err, obj) => {
     err ? console.log("error:", err) : console.log("object:", obj)
+    res.status(200).json({ "error" : err, "data" : obj})
   })
-  res.status(200).json({ message: "They're GREEAAAAT!!!" })
 })
 
 app.get("/api/products", (req, res) => {
-  productModel
+  Products
     .find()
     .exec()
     .then(data => res.send(data))
@@ -56,7 +49,7 @@ app.get("/api/products", (req, res) => {
 })
 
 app.get("/api/products/:id", (req, res) => {
-    productModel
+    Products
       .find({id: req.params.id})
       .exec()
       .then(data => res.send(data));
