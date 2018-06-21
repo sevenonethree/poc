@@ -30,10 +30,10 @@ exports.resolver = {
     },
   },
   Product: {
-    extraData () { 
-      return http.get(settings.restAPI1BaseUrl).then(res => res.data)
+    extraData (root) { 
+      return http.get(`${settings.restAPI1BaseUrl}/${root.id}`).then(res => res.data)
     },
-    extraData2 () {
+    extraData2 (root) {
       return http.get(settings.restAPI2BaseUrl).then(res => res.data)
     }
   }
