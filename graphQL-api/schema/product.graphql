@@ -17,3 +17,15 @@ type ExtraData1 {
 type ExtraData2 {
   message: String!
 }
+
+
+ type Mutation {
+      createProduct(product: ProductInput) : Product
+
+ }
+
+input ProductInput {
+  id: ID!
+  name: String!
+  shortDescription: String
+}

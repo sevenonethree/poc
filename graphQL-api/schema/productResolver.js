@@ -29,6 +29,14 @@ exports.resolver = {
       return products;
     },
   },
+  Mutation: {
+    createProduct(root, { product }) {
+      console.log(root, product)
+      var newProd = new productModel(product)
+      newProd.save();
+      return product
+    }
+  },
   Product: {
     extraData (root) { 
       return http.get(`${settings.restAPI1BaseUrl}/${root.id}`).then(res => res.data)
