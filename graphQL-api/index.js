@@ -6,7 +6,7 @@ const bodyparser = require("body-parser")
 const { makeExecutableSchema } = require("graphql-tools")
 const mongoose = require("mongoose")
 const { schema, resolver } = glue("./schema")
-const Products = require("./models/productModel")
+const ProductDB = require("./db/productDb")
 
 const executableSchema = makeExecutableSchema({
   typeDefs: schema,
@@ -41,17 +41,15 @@ app.post("/api/products", (req, res) => {
 })
 
 app.get("/api/products", (req, res) => {
-  Products
-    .find()
-    .exec()
+  ProductDB
+    .findAll()
     .then(data => res.send(data))
   
 })
 
 app.get("/api/products/:id", (req, res) => {
-    Products
-      .find({id: req.params.id})
-      .exec()
+    ProductDB
+      .findById({id: req.params.id})
       .then(data => res.send(data));
     
   });
