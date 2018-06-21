@@ -8,5 +8,9 @@ module.exports = {
     },
     findAll : function() {
         return Products.find({}).exec()
+    },
+    addProduct : function(product) {
+        var newProd = new Products(product)
+        newProd.save();
     }
 }

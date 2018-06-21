@@ -20,8 +20,7 @@ exports.resolver = {
   Mutation: {
     createProduct(root, { product }) {
       console.log(root, product)
-      var newProd = new productModel(product)
-      newProd.save();
+      ProductDB.addProduct(product)
       return product
     }
   },

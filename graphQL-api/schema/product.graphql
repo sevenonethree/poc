@@ -19,10 +19,9 @@ type ExtraData2 {
 }
 
 
- type Mutation {
-      createProduct(product: ProductInput) : Product
-
- }
+type Mutation {
+  createProduct(product: ProductInput) : Product
+}
 
 input ProductInput {
   id: ID!
