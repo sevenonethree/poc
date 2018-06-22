@@ -12,9 +12,9 @@ export var get = (url) => {
 
 export var post = (url, data) => {
   return fetch(url, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({query: "{products {id, name, shortDescription}}"}),
-})
-  .then(res => res.json())
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({query: "{products {id, name, shortDescription}}"}),
+    })
+    .then(res => res.json())
 }
