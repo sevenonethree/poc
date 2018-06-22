@@ -1,6 +1,7 @@
-var http = require("axios");
-const settings = require("../configSettings.js");
-const mongoose = require("mongoose");
+var http = require("axios")
+const settings = require("../configSettings.js")
+const mongoose = require("mongoose")
+var productModel = require('../db/models/productModel')
 var ProductDB = require("../db/productDb")
 
 mongoose.connect(settings.mongoURL);
@@ -8,11 +9,11 @@ mongoose.connect(settings.mongoURL);
 exports.resolver = {
   Query: {
     products(root, { id }, context) {
-      var products;
+      var products
       if (id) {
         products = ProductDB.findById(id)
       } else {
-        products = ProductDB.findAll();
+        products = ProductDB.findAll()
       }
       return products;
     },
@@ -21,7 +22,7 @@ exports.resolver = {
     createProduct(root, { product }) {
       console.log(root, product)
       var newProd = new productModel(product)
-      newProd.save();
+      newProd.save()
       return product
     }
   },

@@ -21,6 +21,15 @@ var root = {
 
 var app = express()
 app.use(bodyparser())
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome!")
@@ -53,7 +62,8 @@ app.get("/api/products/:id", (req, res) => {
       .then(data => res.send(data));
     
   });
-  
+
+  app.use(express.static(__dirname + './../react-app/'))
 
 app.use(
   "/graphql",

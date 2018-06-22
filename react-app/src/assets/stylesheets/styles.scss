@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+$brand-purple: rgb(135,140,223);
+$brand-green: rgb(153,251,198);
+$typical-font-color: #000000;
+$font-size: 16px;
+$heading-font-size: 20px;
+
+$merriweather: "Merriweather", sans-serif;
+
+body {
+    height: 100vh;
+    background-color: #d8d8d0;
+    color: $typical-font-color;
+    font-size: $font-size;
+    font-weight: 900;
+    font-family: $merriweather; 
+}
+
+.highlight { 
+    color: $brand-green;
+}
