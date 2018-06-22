@@ -11,19 +11,23 @@ const getProducts = () =>
 const addProduct = (product) => {
   data.post(GRAPHURL, {
     query:`
-      mutation CreateProducts{
-        createProduct(product:${JSON.stringify(product)}) {
-          id, 
-          name, 
-          shortDescription
+        mutation CreateProducts{
+          createProduct(product:{
+            id:"${product.id}", 
+            name: "${product.name}", 
+            shortDescription: "${product.shortDescription}" 
+          }) {
+            id, 
+            name, 
+            shortDescription
+          }
         }
-      }
-    `
+      `
   })
 }
 
 // addProduct({id:6, name: "The Sixth Sense", shortDescription: "Seeing dead people."})
-addProduct({id:7, name: "7th Heaven", shortDescription: "Controversy at its finest"})
+// addProduct({id:7, name: "7th Heaven", shortDescription: "Controversy at its finest"})
 
 const Product = props => {
   return (

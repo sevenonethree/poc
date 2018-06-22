@@ -50,16 +50,3 @@ services:
       -  local-mongo-data:/data/db
 volumes:
   local-mongo-data:
-    # links: 
-    #   - mongo
-    # depends_on: 
-    #   - mongo
-  # mongo: 
-  #   container_name: 'rest-api1'
-  #   image: rest1
-  #   ports: 
-      # - 80:3334
-#     volumes:
-#       -  mongo-data:/data/db
-# volumes:
-#   mongo-data:
