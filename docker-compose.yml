@@ -8,9 +8,11 @@ services:
   #     environment: 
   #       NODE_ENV: production
   #     ports:
-  #         - 3000:3000
+  #       - 3000:3000
   #     links:
-  #         - graphql-api  
+  #       - graphql-api  
+  #     volumes:
+  #       - .:/usr/src/app/:rw
   graphql-api:
     container_name: 'graphql'
     image: poc/graphql

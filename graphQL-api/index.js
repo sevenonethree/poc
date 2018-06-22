@@ -1,7 +1,7 @@
 var express = require("express")
 var express_graphql = require("express-graphql")
 const glue = require("schemaglue")
-const settings = require("./configSettings")
+const configSettings = require("./configSettings")
 const bodyparser = require("body-parser")
 const { makeExecutableSchema } = require("graphql-tools")
 const mongoose = require("mongoose")
@@ -12,12 +12,14 @@ const executableSchema = makeExecutableSchema({
   typeDefs: schema,
   resolvers: resolver
 })
-
+ 
+const settings = configSettings[process.env.NODE_ENV || 'dev']
 mongoose.connect(settings.mongoURL)
 
 var root = {
   message: () => "I am (g)root!"
 }
+
 
 var app = express()
 app.use(bodyparser())
