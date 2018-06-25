@@ -1,7 +1,6 @@
 var http = require("axios")
 const configSettings = require("../configSettings.js")
 const mongoose = require("mongoose")
-var productModel = require('../db/models/productModel')
 var ProductDB = require("../db/productDb")
 
 var settings = configSettings[process.env.NODE_ENV || 'dev']
