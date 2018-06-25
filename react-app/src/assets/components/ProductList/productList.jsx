@@ -2,32 +2,8 @@ import React from "react";
 import * as data from "../../../services/graphDataService";
 import styles from './styles'
 const GRAPHURL = "http://localhost:4000/graphql"
-const getProducts = () =>
-  data.post(GRAPHURL, {
-    query: "{products {id, name, shortDescription}}"
-  });
 
-
-const addProduct = (product) => {
-  data.post(GRAPHURL, {
-    query:`
-        mutation CreateProducts{
-          createProduct(product:{
-            id:"${product.id}", 
-            name: "${product.name}", 
-            shortDescription: "${product.shortDescription}" 
-          }) {
-            id, 
-            name, 
-            shortDescription
-          }
-        }
-      `
-  })
-}
-
-// addProduct({id:6, name: "The Sixth Sense", shortDescription: "Seeing dead people."})
-// addProduct({id:7, name: "7th Heaven", shortDescription: "Controversy at its finest"})
+// data.addProduct({id:9, name: "Ninety Nine Problems", shortDescription: "You know what ain't one."})
 
 const Product = props => {
   return (
@@ -38,14 +14,14 @@ const Product = props => {
 };
 
 class ProductList extends React.Component {
-constructor(props) {
-  super(props)
-  this.state = {
-    products: []
+  constructor(props) {
+    super(props)
+    this.state = {
+      products: []
+    }
   }
-}
   componentWillMount() {
-    getProducts().then(res => {
+    data.getProducts().then(res => {
       if (res.data) {
         var products = res.data.products.map((product, key) => (
           <li key={key} className="product-item"><Product
