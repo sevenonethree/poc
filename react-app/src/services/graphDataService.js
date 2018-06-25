@@ -1,7 +1,7 @@
-import ApolloClient from "apollo-boost";
-import gql from "graphql-tag";
+import ApolloClient from "apollo-boost"
+import gql from "graphql-tag"
 
-const client = new ApolloClient({ uri: "http://localhost:4000/graphql" });
+const client = new ApolloClient({ uri: "http://localhost:4000/graphql" })
 export var getProducts = () => {
   return client.query({
     query: gql`
@@ -13,8 +13,8 @@ export var getProducts = () => {
         }
       }
     `
-  });
-};
+  })
+}
 
 export var addProduct = product => {
   client.mutate({
@@ -31,5 +31,14 @@ export var addProduct = product => {
             }
           }
         `
-  });
-};
+  })
+}
+export const GETPRODUCTSQUERY = gql`
+  {
+    products {
+      id
+      name
+      shortDescription
+    }
+  }
+`

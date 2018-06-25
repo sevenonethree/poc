@@ -1,7 +1,7 @@
-import React from "react";
-import * as data from "../../../services/graphDataService";
+import React from "react"
+import * as productData from "../../../services/graphDataService"
+import { Query } from 'react-apollo'
 import styles from './styles'
-const GRAPHURL = "http://localhost:4000/graphql"
 
 // data.addProduct({id:9, name: "Ninety Nine Problems", shortDescription: "You know what ain't one."})
 
@@ -10,38 +10,35 @@ const Product = props => {
     <div className="product">
       {props.name} - {props.shortDescription}
     </div>
-  );
-};
-
-class ProductList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      products: []
-    }
-  }
-  componentWillMount() {
-    data.getProducts().then(res => {
-      if (res.data) {
-        var products = res.data.products.map((product, key) => (
-          <li key={key} className="product-item"><Product
-            id={product.id}
-            name={product.name}
-            shortDescription={product.shortDescription}
-          /></li>
-        ));
-        this.setState({ products: products });
-      }
-    });
-  }
-
-  render() {
-    return(
-      <ul>
-        {this.state.products}
-      </ul>
-    ) ;
-  }
+  )
 }
 
-export default ProductList;
+
+const ProductList = (props) =>  {
+  return (
+    <Query query={productData.GETPRODUCTSQUERY}>
+      {({loading, error, data}) => {
+        if (loading) return <p>Loading</p>
+
+        if (error) return <p>Error: {JSON.stringify(error)}</p>
+
+        return (
+            <ul>
+              {
+                data.products.map(((p, key) =>
+                  <li key={key} className="product-item">
+                    <Product
+                      id={p.id}
+                      name={p.name}
+                      shortDescription={p.shortDescription}
+                    />
+                  </li>))
+              }
+            </ul>
+            )
+        }
+      }
+    </Query>)
+}
+
+export default ProductList
