@@ -1,44 +1,44 @@
-import React from "react"
-import * as productData from "../../../services/graphDataService"
-import { Query } from 'react-apollo'
-import styles from './styles'
+import React from "react";
+import ProductQuery from "./ProductQuery";
 
-// data.addProduct({id:9, name: "Ninety Nine Problems", shortDescription: "You know what ain't one."})
-
-const Product = props => {
+export const Product = props => {
   return (
     <div className="product">
       {props.name} - {props.shortDescription}
     </div>
-  )
-}
+  );
+};
 
-
-const ProductList = (props) =>  {
+const ProductList = props => {
   return (
-    <Query query={productData.GETPRODUCTSQUERY}>
-      {({loading, error, data}) => {
-        if (loading) return <p>Loading</p>
+    <ProductQuery>
+      {(products, { isLoading, isEmpty, isError }) => {
+        if (isLoading) {
+          return <div>Loading</div>;
+        }
 
-        if (error) return <p>Error: {JSON.stringify(error)}</p>
+        if (isEmpty) {
+          return <div>No items match your postal code</div>;
+        }
+
+        if (isError) {
+          return <div>There was an error processing your search</div>;
+        }
 
         return (
-            <ul>
-              {
-                data.products.map(((p, key) =>
-                  <li key={key} className="product-item">
-                    <Product
-                      id={p.id}
-                      name={p.name}
-                      shortDescription={p.shortDescription}
-                    />
-                  </li>))
-              }
-            </ul>
-            )
-        }
-      }
-    </Query>)
-}
-
-export default ProductList
+          <ul>
+            {products.map(product => (
+              <li key={product.id}>
+                <Product
+                  name={product.name}
+                  shortDescription={product.shortDescription}
+                />{" "}
+              </li>
+            ))}
+          </ul>
+        );
+      }}
+    </ProductQuery>
+  );
+};
+export default ProductList;
