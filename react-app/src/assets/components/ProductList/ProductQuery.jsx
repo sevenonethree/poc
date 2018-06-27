@@ -1,25 +1,30 @@
 import React from "react";
 import * as productData from "../../../services/graphDataService";
-import { graphql } from "react-apollo";
+import { Query } from "react-apollo";
 
-export class ProductsQuery extends React.Component {
+const ProductQuery = (props) => {
+//  <Query query={productData.FINDPRODUCTQUERY} variables={{ id: props.id, name: props.name }}>
 
+  return (
+  <Query query={props.query} variables={props.variables}>
+        {(props2) => {
+          const { isLoading, isEmpty, isError, products } = mapDataToProps(props2);
+          return (
+            props.children && props.children(products, { isLoading, isEmpty, isError })
+          );
+        }}
+      </Query>
+    );
+};
 
-  render() {
-    const { isLoading, isEmpty, isError, products, children } = this.props;
-    return children && children(products, { isLoading, isEmpty, isError });
-  }
-}
-
-const mapDataToProps = ({ data }) => {
-  const isLoading = data.loading;
+const mapDataToProps = props => {
+  var { data, error, loading } = props;
+  const isLoading = loading; 
   const isEmpty = !!data.products && data.products.length === 0;
-  const isError = !!data.error;
+  const isError = error;
   const products = data.products || [];
 
   return { isLoading, isEmpty, isError, products };
 };
 
-export default graphql(productData.GETPRODUCTSQUERY, {
-  props: mapDataToProps
-})( ProductsQuery );
+export default ProductQuery

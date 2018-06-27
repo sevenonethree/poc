@@ -1,7 +1,6 @@
 import React from "react";
 import ProductQuery from "./ProductQuery";
-import SingleProductQuery from './SingleProductQuery'
-
+import * as productData from '../../../services/graphDataService'
 export const Product = props => {
   return (
     <div className="product">
@@ -11,41 +10,8 @@ export const Product = props => {
 };
 
 const ProductList = props => {
-  if (props.id){
     return (
-      <SingleProductQuery id={props.id}>
-        {(products, { isLoading, isEmpty, isError }) => {
-          if (isLoading) {
-            return <div>Loading</div>;
-          }
-  
-          if (isEmpty) {
-            return <div>This is empty</div>;
-          }
-  
-          if (isError) {
-            return <div>There was an error processing your search</div>;
-          }
-  
-          return (
-            <ul>
-              {products.map(product => (
-                <li key={product.id}>
-                  <Product
-                    name={product.name}
-                    shortDescription={product.shortDescription}
-                  />
-                </li>
-              ))}
-            </ul>
-          );
-        }}
-      </SingleProductQuery>
-    );
-  }
-  else {
-    return (
-      <ProductQuery>
+      <ProductQuery query={productData.GETPRODUCTSQUERY}>
         {(products, { isLoading, isEmpty, isError }) => {
           if (isLoading) {
             return <div>Loading</div>;
@@ -74,6 +40,5 @@ const ProductList = props => {
         }}
       </ProductQuery>
     );
-  }
 };
 export default ProductList;

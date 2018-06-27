@@ -7,7 +7,7 @@ import renderer from "react-test-renderer";
 import { MockedProvider } from "react-apollo/test-utils";
 import * as productData from "../../../services/graphDataService";
 import products from "./mockProducts";
-import SingleProductQuery from './SingleProductQuery'
+import ProductQuery from "./ProductQuery";
 
 const allProducts = [
   {
@@ -66,11 +66,11 @@ test("Can render a single product", async () => {
   var productIDToReturn = 3;
   const component = renderer.create(
     <MockedProvider mocks={singleProduct(productIDToReturn)} addTypename={false}>
-      <SingleProductQuery id={productIDToReturn}>
+      <ProductQuery query={productData.FINDPRODUCTQUERY} variables={{id: productIDToReturn}}>
         {(products, { isLoading, isEmpty, isError }) => {
           return products.map((p, key) => <li key={key}>{p.id} - {p.name}</li>)
         }}
-      </SingleProductQuery>    
+      </ProductQuery>    
       {/* <ProductList id={productIDToReturn} /> */}
     </MockedProvider>
   );
@@ -82,14 +82,16 @@ test("Can render a single product", async () => {
 
 test('Can find product by name', async () => {
   var productName = "Product A"
-  
+  var variables = {
+    name: productName
+  }
   const component = renderer.create(
     <MockedProvider mocks={productByName(productName)} addTypename={false}>
-      <SingleProductQuery name={productName}>
+      <ProductQuery query={productData.FINDPRODUCTQUERY} variables={variables}>
         {(products, { isLoading, isEmpty, isError }) => {
           return products.map((p, key) => <li key={key}>{p.id} - {p.name}</li>)
         }}
-      </SingleProductQuery>    
+      </ProductQuery>    
       {/* <ProductList id={productIDToReturn} /> */}
     </MockedProvider>
   )
