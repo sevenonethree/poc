@@ -11,8 +11,6 @@ services:
         - 3000:80
       links:
         - graphql-api  
-      # volumes:
-      #   - .:/usr/src/app/:rw
   graphql-api:
     container_name: 'graphql'
     image: poc/graphql

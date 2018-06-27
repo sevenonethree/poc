@@ -1,0 +1,49 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Product A",
+      "shortDescription": "First product."
+    },
+    {
+      "id": "2",
+      "name": "Product B",
+      "shortDescription": "Second product."
+    },
+    {
+      "id": "3",
+      "name": "The Tré",
+      "shortDescription": "The greatest product."
+    },
+    {
+      "id": "4",
+      "name": "Quad City DJ's",
+      "shortDescription": "Fans of trains."
+    },
+    {
+      "id": "5",
+      "name": "The Fifth Element",
+      "shortDescription": "Muuuuullltipaaaassssss."
+    },
+    {
+      "id": "6",
+      "name": "The Sixth Sense",
+      "shortDescription": "Seeing dead people."
+    },
+    {
+      "id": "7",
+      "name": "7th Heaven",
+      "shortDescription": "Controversy at its finest"
+    },
+    {
+      "id": "8",
+      "name": "Ocho Cinco",
+      "shortDescription": "Overrated."
+    },
+    {
+      "id": "9",
+      "name": "Ninety Nine Problems",
+      "shortDescription": "You know what ain't one."
+    }
+  ]
+}
