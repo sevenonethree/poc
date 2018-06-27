@@ -1,12 +1,9 @@
 var express = require("express")
 //var express_graphql = require("express-graphql")
 const glue = require("schemaglue")
-const configSettings = require("./configSettings")
 const bodyparser = require("body-parser")
 const { makeExecutableSchema } = require("graphql-tools")
-const mongoose = require("mongoose")
 const { schema, resolver } = glue("./schema")
-const ProductDB = require("./db/productDb")
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 
 

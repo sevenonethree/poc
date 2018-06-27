@@ -3,7 +3,6 @@ require('./assets/stylesheets/styles.scss')
 import React from 'react'
 import ReactDom from 'react-dom'
 import App from './app/app.jsx'
-import settings from 'app/settings'
 import { ApolloProvider } from 'react-apollo'
 import ApolloClient from "apollo-boost";
 
