@@ -42,3 +42,13 @@ export const GETPRODUCTSQUERY = gql`
     }
   }
 `
+
+export const FINDPRODUCTQUERY = gql`
+  query FindProduct($id: Int, $name:String){
+    products(id: $id, name:$name) {
+      id
+      name
+      shortDescription
+    }
+  }
+  `

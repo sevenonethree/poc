@@ -1,18 +1,16 @@
 version: '3'
 
 services:
-  # react-app:
-  #     container_name: 'react-app'
-  #     image: poc/react-app
-  #     build: ./react-front-end
-  #     environment: 
-  #       NODE_ENV: production
-  #     ports:
-  #       - 3000:3000
-  #     links:
-  #       - graphql-api  
-  #     volumes:
-  #       - .:/usr/src/app/:rw
+  react-app:
+      container_name: 'react-app'
+      image: poc/react
+      build: ./react-app
+      environment: 
+        NODE_ENV: production
+      ports:
+        - 3000:80
+      links:
+        - graphql-api  
   graphql-api:
     container_name: 'graphql'
     image: poc/graphql

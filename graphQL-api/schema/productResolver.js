@@ -9,14 +9,11 @@ mongoose.connect(settings.mongoURL);
 
 exports.resolver = {
   Query: {
-    products(root, { id }, context) {
-      var products
-      if (id) {
-        products = ProductDB.findById(id)
-      } else {
-        products = ProductDB.findAll()
-      }
-      return products;
+    products(root, { id, name }, context) {
+      var searchObj = {}
+      if (id) {searchObj.id = id}
+      if (name) {searchObj.name = name}
+      return ProductDB.find(searchObj);
     },
   },
   Mutation: {

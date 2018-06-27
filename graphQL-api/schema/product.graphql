@@ -7,7 +7,7 @@ type Product {
 }
 
 type Query { 
-  products(id: Int): [Product]
+  products(id: Int, name: String): [Product]
 }
 
 type ExtraData1 {
