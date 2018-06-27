@@ -4,3 +4,4 @@ public/*.css
 **/.vscode/
 **/.DS_Store
 **/package-lock.json
+**/*.snap
