@@ -53,8 +53,6 @@ If all worked, you will receive the item that you sent back from the api.
 }
 ```
 
-Using that same format, add products to your heart's content! To view these items in the react application, navigate to 
-if using docker-compose: 
-http://localhost:3000
-if running individually: 
-http://localhost:8080
+Using that same format, add products to your heart's content!
+
+ To view these items in the react application, navigate to http://localhost:3000

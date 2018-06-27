@@ -66,7 +66,8 @@ let config = {
         contentBase: path.resolve(__dirname, './public'), // where is this content coming from?
         historyApiFallback: true, // falls back to index.html for SPA
         inline: true, //set this to false to disable including client scripts (like browser reload)
-        open: true //opens the default browser
+        open: true, //opens the default browser
+        port: 3000
     },
     devtool: 'eval-source-map'
 }
