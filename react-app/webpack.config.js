@@ -1,6 +1,6 @@
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const Uglify = require('uglifyjs-webpack-plugin');
 const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
 
@@ -28,10 +28,7 @@ let config = {
         },
         {
             test: /\.scss$/,
-            use: ['css-hot-loader'].concat(ExtractTextWebpackPlugin.extract({
-                use: ['css-loader', 'sass-loader'],
-                fallback: 'style-loader'
-            }))
+            use: [process.env.NODE_ENV == 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass-loader']
         },
         {
             test: /\.{jpe?g|png|gif|svg}$/i,
@@ -59,7 +56,7 @@ let config = {
         ]
     },
     plugins : [
-        new ExtractTextWebpackPlugin('styles.css')
+        new MiniCssExtractPlugin('styles.css')
     ],
     devServer: {
         // publicPath: path.resolve(__dirname, './public'),
@@ -75,7 +72,7 @@ module.exports = config;
 
 if (process.env.NODE_ENV === 'production'){
       module.exports.plugins.push(
-    new Uglify(),
-    new OptimizeCSS()
+          new Uglify(),
+          new OptimizeCSS()
     );
 }

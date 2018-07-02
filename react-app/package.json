@@ -1,15 +1,16 @@
 {
-  "name": "webpack-starter",
+  "name": "react-poc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode development",
     "dev": "webpack-dev-server -d --hot --config webpack.config.js",
-    "prod": "NODE_ENV=production webpack",
+    "prod": "NODE_ENV=production webpack --mode production",
     "clean": "rm ./public/*.css & rm ./public/*.js & rm -rf ./public/images/",
     "test": "jest",
-    "test-driven": "jest --watchAll"
+    "test-driven": "jest --mode development --watchAll --coverage",
+    "check-coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,6 @@
     "babel-preset-react": "^6.24.1",
     "css-hot-loader": "^1.1.1",
     "css-loader": "^0.28.2",
-    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "image-webpack-loader": "^3.3.1",
     "jest": "^23.2.0",
@@ -34,8 +34,9 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "^2.6.0",
-    "webpack-dev-server": "^2.4.5"
+    "webpack": "^4.13.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
     "apollo-boost": "^0.1.10",
@@ -44,8 +45,16 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "isomorphic-fetch": "^2.2.1",
+    "mini-css-extract-plugin": "^0.4.0",
     "react-apollo": "^2.1.6",
     "unfetch": "^3.0.0",
     "waait": "^1.0.2"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as data from '../../../services/graphDataService'
 import ProductList from '../../components/ProductList/productList'
-
+import ProductEntry from '../../components/ProductEntry/ProductEntry'
 /*
   Home => [Product List] STATE (Products)
 
@@ -17,6 +17,7 @@ render() {
       <div> 
         Home Scene
         <ProductList />
+        <ProductEntry />
       </div>)
   }
 

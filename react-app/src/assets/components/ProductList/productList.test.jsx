@@ -101,3 +101,33 @@ test('Can find product by name', async () => {
   expect(li.length).toBe(1)
 })
 
+test('properly handles empty products', async () => {
+  var mock = [
+    {
+      request: {
+        query: productData.GETPRODUCTSQUERY,
+        variables: {}
+      },
+      result: {
+        data: {
+          products: null
+        }
+      }
+    }
+  ];
+
+  const component = renderer.create(
+    <MockedProvider mocks={mock} addTypename={false}>
+      <ProductQuery query={productData.GETPRODUCTSQUERY}>
+        {(products, { isLoading, isEmpty, isError }) => {
+          return products.map((p, key) => <li key={key}>{p.id} - {p.name}</li>)
+        }}
+      </ProductQuery>    
+    </MockedProvider>
+  )
+
+  await wait(0)
+  const li = component.root.findAllByType('li')
+  expect(li.length).toBe(0)
+})
+
